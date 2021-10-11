@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+MDR Manager
+
+ Copyright (C) 2021 Andreas Olofsson
+
+
+This file is part of MDR Manager.
+
+MDR Manager is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MDR MAnager is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with mdrd. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<interface>
+    <!-- interface-requires gtk+ 3.8 -->
+    <template class="MDRDeviceView" parent="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="expand">True</property>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="halign">center</property>
+                <property name="width-request">512</property>
+                <child>
+                    <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin-top">16</property>
+                        <property name="margin-left">32</property>
+                        <property name="margin-right">32</property>
+                        <child>
+                            <object class="GtkButton" id="power_off_button">
+                                <property name="visible">False</property>
+                                <property name="label">Power Off</property>
+                                <property name="margin">8</property>
+                                <property name="hexpand">True</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="disconnect_button">
+                                <property name="visible">True</property>
+                                <property name="label">Disconnect</property>
+                                <property name="margin">8</property>
+                                <property name="hexpand">True</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="battery_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Battery</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="spacing">8</property>
+                                        <child>
+                                            <object class="GtkLevelBar" id="battery_bar">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="min-value">0</property>
+                                                <property name="max-value">100</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel" id="battery_label">
+                                                <property name="visible">True</property>
+                                                <property name="label">XX</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">%</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="lr_battery_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Left-Right Battery</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkGrid">
+                                        <property name="visible">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="row-spacing">8</property>
+                                        <property name="column-spacing">8</property>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Left</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLevelBar" id="left_battery_bar">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="min-value">0</property>
+                                                <property name="max-value">100</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel" id="left_battery_label">
+                                                <property name="visible">True</property>
+                                                <property name="label">XX</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">%</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">3</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Right</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLevelBar" id="right_battery_bar">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="min-value">0</property>
+                                                <property name="max-value">100</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel" id="right_battery_label">
+                                                <property name="visible">True</property>
+                                                <property name="label">XX</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">%</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">3</property>
+                                            </packing>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="cradle_battery_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Cradle Battery</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="spacing">8</property>
+                                        <child>
+                                            <object class="GtkLevelBar" id="cradle_battery_bar">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="min-value">0</property>
+                                                <property name="max-value">100</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel" id="cradle_battery_label">
+                                                <property name="visible">True</property>
+                                                <property name="label">XX</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">%</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="nc_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Noise Cancelling</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child> 
+                                    <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="spacing">8</property>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Enabled</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkSwitch" id="nc_switch">
+                                                <property name="visible">True</property>
+                                                <property name="halign">start</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="asm_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Ambient Sound Mode</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="spacing">8</property>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Amount</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkScale" id="asm_amount">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="digits">0</property>
+                                                <property name="adjustment">asm_adjustment</property>
+                                                <property name="value-pos">right</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="eq_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Equalizer</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkGrid">
+                                        <property name="visible">True</property>
+                                        <property name="row-spacing">8</property>
+                                        <property name="column-spacing">8</property>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Preset</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkComboBoxText" id="eq_preset">
+                                                <property name="visible">True</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">0</property>
+                                                <property name="left-attach">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Levels</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">0</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <object class="GtkBox" id="eq_container">
+                                                <property name="visible">True</property>
+                                                <property name="orientation">horizontal</property>
+                                                <property name="spacing">8</property>
+                                            </object>
+                                            <packing>
+                                                <property name="top-attach">1</property>
+                                                <property name="left-attach">1</property>
+                                            </packing>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="auto_power_off_view">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Auto Power-Off</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="spacing">8</property>
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="visible">True</property>
+                                                <property name="label">Timeout</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkComboBoxText" id="auto_power_off_timeout">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <items>
+                                                    <item id="Off">Off</item>
+                                                </items>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+    <object class="GtkAdjustment" id="asm_adjustment">
+        <property name="lower">0</property>
+        <property name="upper">20</property>
+        <property name="step-increment">1</property>
+    </object>
+</interface>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+MDR Manager
+
+ Copyright (C) 2021 Andreas Olofsson
+
+
+This file is part of MDR Manager.
+
+MDR Manager is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MDR MAnager is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with mdrd. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<interface>
+    <!-- interface-requires gtk+ 3.8 -->
+    <template class="MDRWindow" parent="GtkApplicationWindow">
+        <property name="title" translatable="yes">MDR Manager</property>
+        <property name="default-width">600</property>
+        <property name="default-height">400</property>
+        <child>
+            <object class="GtkStack" id="stack">
+                <property name="visible">True</property>
+                <child>
+                    <object class="GtkSpinner" id="loading_spinner">
+                        <property name="name">loading_spinner</property>
+                        <property name="visible">True</property>
+                        <property name="active">True</property>
+                    </object>
+                    <packing>
+                        <property name="name">loading_spinner</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="MDRDevicesView" id="devices_view">
+                        <property name="name">devices</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="name">devices</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="MDRNoDevicesView" id="no_devices">
+                        <property name="name">no_devices</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="name">no_devices</property>
+                    </packing>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>
