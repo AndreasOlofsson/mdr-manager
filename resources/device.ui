@@ -434,7 +434,7 @@ along with mdrd. If not, see <https://www.gnu.org/licenses/>.
                 </child>
                 <child>
                     <object class="GtkBox" id="auto_power_off_view">
-                        <property name="visible">True</property>
+                        <property name="visible">False</property>
                         <property name="orientation">vertical</property>
                         <property name="hexpand">True</property>
                         <property name="margin">16</property>
@@ -471,6 +471,36 @@ along with mdrd. If not, see <https://www.gnu.org/licenses/>.
                                                 </items>
                                             </object>
                                         </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox" id="key_functions_view">
+                        <property name="visible">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="hexpand">True</property>
+                        <property name="margin">16</property>
+                        <property name="spacing">8</property>
+                        <child>
+                            <object class="MDRHeading">
+                                <property name="visible">True</property>
+                                <property name="label">Key Functions</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="margin-left">16</property>
+                                <property name="margin-right">16</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                    <object class="MDRKeyFunctionsView" id="key_functions">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">16</property>
                                     </object>
                                 </child>
                             </object>

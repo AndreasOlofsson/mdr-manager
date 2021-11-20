@@ -29,6 +29,14 @@ along with mdrd. If not, see <https://www.gnu.org/licenses/>.
         <file preprocess="xml-stripblanks">no-devices.ui</file>
         <file preprocess="xml-stripblanks">device.ui</file>
         <file preprocess="xml-stripblanks">heading.ui</file>
+        <file preprocess="xml-stripblanks">key-functions.ui</file>
+        <file preprocess="xml-stripblanks">key-functions-function.ui</file>
         <file>style.css</file>
+        <file>icons/scalable/actions/single-press-symbolic.svg</file>
+        <file>icons/scalable/actions/double-press-symbolic.svg</file>
+        <file>icons/scalable/actions/triple-press-symbolic.svg</file>
+        <file>icons/scalable/actions/single-hold-symbolic.svg</file>
+        <file>icons/scalable/actions/double-hold-symbolic.svg</file>
+        <file>icons/scalable/actions/long-hold-symbolic.svg</file>
     </gresource>
 </gresources>

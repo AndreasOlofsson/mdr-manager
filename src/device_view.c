@@ -64,6 +64,9 @@ struct _MDRDeviceViewPrivate
 
     GtkBox*          auto_power_off_view;
     GtkComboBoxText* auto_power_off_timeout;
+
+    GtkBox*          key_functions_view;
+    GtkBox*          key_functions;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(MDRDeviceView,
@@ -346,6 +349,11 @@ static void eq_preset_changed(GtkComboBox* preset_view,
 
     const gchar* target_preset = gtk_combo_box_get_active_id(preset_view);
 
+    if (target_preset == NULL)
+    {
+        return;
+    }
+
     org_mdr_eq_call_set_preset(eq,
                                target_preset,
                                NULL,
@@ -589,6 +597,11 @@ static void auto_power_off_timeout_changed(GtkComboBox* timeout_view,
 
     const gchar* target_timeout = gtk_combo_box_get_active_id(timeout_view);
 
+    if (target_timeout == NULL)
+    {
+        return;
+    }
+
     org_mdr_auto_power_off_call_set_timeout(
             auto_power_off,
             target_timeout,
@@ -625,6 +638,16 @@ begin_iface_init(auto_power_off, OrgMdrAutoPowerOff)
             G_CONNECT_AFTER);
 end_iface_init
 
+begin_iface_init(key_functions, OrgMdrKeyFunctions)
+    gtk_widget_set_visible(GTK_WIDGET(private->key_functions_view), TRUE);
+
+    GValue interface = {0};
+    g_value_init(&interface, TYPE_ORG_MDR_KEY_FUNCTIONS_PROXY);
+    g_value_set_object(&interface, key_functions);
+    g_object_set_property(G_OBJECT(private->key_functions), "interface", &interface);
+    // GVariant* a = org_mdr_key_functions_get_
+end_iface_init
+
 MDRDeviceView* mdr_device_view_new(MDRDevice* device)
 {
     MDRDeviceView* view
@@ -659,6 +682,7 @@ MDRDeviceView* mdr_device_view_new(MDRDevice* device)
     init_iface(ambient_sound_mode, OrgMdrAmbientSoundMode, "ambient-sound-mode");
     init_iface(eq, OrgMdrEq, "eq");
     init_iface(auto_power_off, OrgMdrAutoPowerOff, "auto-power-off");
+    init_iface(key_functions, OrgMdrKeyFunctions, "key-functions");
 
     return view;
 }
@@ -705,5 +729,8 @@ static void mdr_device_view_class_init(MDRDeviceViewClass* class)
 
     bind_template_child(auto_power_off_view);
     bind_template_child(auto_power_off_timeout);
+
+    bind_template_child(key_functions_view);
+    bind_template_child(key_functions);
 }
 

@@ -24,6 +24,8 @@
 
 #include "mdr_device.h"
 
+#include "key_functions_view.h"
+
 struct _MDRDevice
 {
     GObject parent;
@@ -51,6 +53,8 @@ struct _MDRDevicePrivate
     OrgMdrEq* eq_iface;
 
     OrgMdrAutoPowerOff* auto_power_off_iface;
+
+    OrgMdrKeyFunctions* key_functions_iface;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(MDRDevice,
@@ -68,6 +72,7 @@ enum
     PROPERTY_AMBIENT_SOUND_MODE,
     PROPERTY_EQ,
     PROPERTY_AUTO_POWER_OFF,
+    PROPERTY_KEY_FUNCTIONS,
     PROPERTY_COUNT,
 };
 
@@ -96,6 +101,7 @@ static void mdr_device_init(MDRDevice* device)
     private->ambient_sound_mode_iface = NULL;
     private->eq_iface = NULL;
     private->auto_power_off_iface = NULL;
+    private->key_functions_iface = NULL;
 }
 
 static void device_introspect_finish(GObject* source_object,
@@ -167,6 +173,7 @@ device_interface_handler(noise_cancelling)
 device_interface_handler(ambient_sound_mode)
 device_interface_handler(eq)
 device_interface_handler(auto_power_off)
+device_interface_handler(key_functions)
 
 static void device_disconnected(OrgMdrDevice* device_iface,
                                 MDRDevice* device)
@@ -283,6 +290,7 @@ static void device_introspect_finish(GObject* source_object,
         init_interface_if_present("org.mdr.AmbientSoundMode", ambient_sound_mode);
         init_interface_if_present("org.mdr.Eq", eq);
         init_interface_if_present("org.mdr.AutoPowerOff", auto_power_off);
+        init_interface_if_present("org.mdr.KeyFunctions", key_functions);
     }
 
     if (!device_iface_found)
@@ -353,6 +361,10 @@ static void mdr_device_get_property(GObject* object,
             g_value_set_object(value, private->auto_power_off_iface);
             break;
 
+        case PROPERTY_KEY_FUNCTIONS:
+            g_value_set_object(value, private->key_functions_iface);
+            break;
+
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
@@ -375,6 +387,7 @@ static void mdr_device_set_property(GObject* object,
         case PROPERTY_AMBIENT_SOUND_MODE:
         case PROPERTY_EQ:
         case PROPERTY_AUTO_POWER_OFF:
+        case PROPERTY_KEY_FUNCTIONS:
             break;
 
         default:
@@ -387,6 +400,8 @@ static void mdr_device_set_property(GObject* object,
 
 static void mdr_device_class_init(MDRDeviceClass* class)
 {
+    g_type_ensure(MDR_KEY_FUNCTIONS_VIEW_TYPE);
+
     GObjectClass* object_class = G_OBJECT_CLASS(class);
 
     object_class->get_property = mdr_device_get_property;
@@ -471,6 +486,15 @@ static void mdr_device_class_init(MDRDeviceClass* class)
                                "Auto Power-Off interface",
                                "",
                                TYPE_ORG_MDR_AUTO_POWER_OFF,
+                               G_PARAM_READABLE));
+
+    g_object_class_install_property(
+            object_class,
+            PROPERTY_KEY_FUNCTIONS,
+            g_param_spec_object("key_functions",
+                               "Key Functions interface",
+                               "",
+                               TYPE_ORG_MDR_KEY_FUNCTIONS,
                                G_PARAM_READABLE));
 
     signals[SIGNAL_DEVICE_DISCONNECTED] =
