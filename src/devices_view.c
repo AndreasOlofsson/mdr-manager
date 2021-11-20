@@ -169,8 +169,6 @@ static void device_disconnected(MDRDevice* device,
     gtk_container_remove(
             GTK_CONTAINER(private->device_stack),
             GTK_WIDGET(device_view));
-
-    g_free(data);
 }
 
 static void mdr_devices_view_finalize(GObject* object)
